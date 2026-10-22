@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقاله‌سرا | انتشار مقاله</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="logo" onclick="showHome()"><i class="fa-solid fa-book-open"></i> مقاله‌سرا</div>
+            <nav>
+                <button onclick="toggleDarkMode()" id="darkBtn" title="تغییر تم"><i class="fa-solid fa-moon"></i></button>
+                <button onclick="showHome()">خانه</button>
+                <button onclick="showAdminLogin()" class="admin-login-btn">پنل ادمین <i class="fa-solid fa-user-gear"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="home-section">
+            <div class="hero">
+                <h1>دانش خود را به اشتراک بگذارید</h1>
+                <p>جدیدترین مقالات را بخوانید</p>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="جستجو در مقالات..." oninput="searchArticles()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <!-- دسته بندی ها به صورت داینامیک ساخته میشه -->
+            <div class="categories" id="categoriesContainer"></div>
+            <div id="articlesGrid" class="grid"></div>
+        </section>
+
+        <section id="single-section" class="hidden">
+            <button class="back-btn" onclick="showHome()"><i class="fa-solid fa-arrow-right"></i> بازگشت</button>
+            <article id="singleArticle"></article>
+        </section>
+
+        <section id="admin-section" class="hidden">
+            <div id="loginBox" class="card admin-card">
+                <h2><i class="fa-solid fa-lock"></i> ورود به پنل مدیریت</h2>
+                <input type="password" id="adminPass" placeholder="رمز عبور را وارد کنید">
+                <button class="btn-primary" onclick="login()">ورود</button>
+                <button class="back-btn" onclick="showHome()">بازگشت به سایت</button>
+                <p id="loginError" class="error"></p>
+            </div>
+
+            <div id="dashboard" class="hidden">
+                <div class="dashboard-header">
+                    <h2>پنل مدیریت</h2>
+                    <button class="btn-danger" onclick="logout()">خروج <i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+
+                <!-- بخش جدید: مدیریت دسته بندی -->
+                <div class="card">
+                    <h3><i class="fa-solid fa-layer-group"></i> مدیریت دسته‌بندی‌ها</h3>
+                    <div style="display:flex; gap:10px; margin-top:12px;">
+                        <input type="text" id="newCategoryInput" placeholder="نام دسته جدید مثلا: ورزشی">
+                        <button class="btn-primary" style="width:auto; white-space:nowrap;" onclick="addCategory()">افزودن دسته</button>
+                    </div>
+                    <div id="categoryListAdmin" style="margin-top:15px; display:flex; gap:8px; flex-wrap:wrap;"></div>
+                </div>
+
+                <div class="card">
+                    <h3 id="formTitle">افزودن مقاله جدید</h3>
+                    <form id="articleForm" onsubmit="saveArticle(event)">
+                        <input type="hidden" id="editId">
+                        <input type="text" id="title" placeholder="عنوان مقاله" required>
+                        <select id="category" required></select>
+                        <input type="text" id="image" placeholder="لینک عکس مقاله - https://...">
+                        <input type="text" id="excerpt" placeholder="خلاصه کوتاه مقاله" required>
+                        <textarea id="content" rows="6" placeholder="متن کامل مقاله..." required></textarea>
+                        <button type="submit" class="btn-primary" id="submitBtn">انتشار مقاله</button>
+                        <button type="button" class="btn-secondary hidden" id="cancelEdit" onclick="cancelArticleEdit()">انصراف از ویرایش</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>مدیریت مقالات (<span id="count"></span>)</h3>
+                    <div id="adminList"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>طراحی شده با ❤️ | مقاله‌سرا 2026</footer>
+    <!-- اگر اسم فایلت scriot.js هست همین رو بذار -->
+    <script src="script.js"></script>
+</body>
+</html>
